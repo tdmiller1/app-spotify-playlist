@@ -29,6 +29,7 @@
     "react-scroll-parallax": "2.2.0",
     "react-sidenav": "4.0.3",
     "request": "^2.88.0",
+    "serve": "^11.2.0",
     "styled-components": "4.4.0"
   },
   "devDependencies": {

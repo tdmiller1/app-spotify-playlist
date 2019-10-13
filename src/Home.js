@@ -40,7 +40,6 @@ class Home extends React.Component {
           alignItems="center"
           className={classes.root}>
           <Grid item>
-            <div>{process.env.NODE_ENV}</div>
             <Button className={classes.spotifyButton} onClick={authorize}>Login</Button>
           </Grid>
         </Grid>
