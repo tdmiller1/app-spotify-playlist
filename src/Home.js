@@ -3,14 +3,21 @@ import PropTypes from 'prop-types'
 import {
   Button, Grid, withStyles } from '@material-ui/core';
 import config from './config'
+import axios from 'axios'
 
 async function authorize(){
-  var client_id = process.env.client_id
-  var redirect_uri = config.url + '/callback'
-  var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=user-top-read%20user-read-private%20user-read-email&state=34fFs29kd09'
- 
-  window.location.href = url
-
+  var client_id = ""
+  axios({
+    url: config.authApiUrl + '/auth/clientId',
+    method: 'get',
+    timeout: '8000'
+  }).then(function (response) {
+    client_id = response.data
+    var redirect_uri = config.url + '/callback'
+    var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=user-top-read%20user-read-private%20user-read-email&state=34fFs29kd09'
+  
+    window.location.href = url
+  })
 }
 
 const styles = theme => ({
