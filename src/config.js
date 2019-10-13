@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'development'){
     var config = {
-        authApiUrl: 'https://api-tuckermillerdev.herokuapp.com/',
-        url: 'https://app-spotify-app.herokuapp.com/'
+        authApiUrl: 'https://api-tuckermillerdev.herokuapp.com',
+        url: 'https://app-spotify-app.herokuapp.com'
     }
 }else{
     config = {
