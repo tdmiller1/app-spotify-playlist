@@ -6,7 +6,6 @@ import config from './config'
 
 async function authorize(){
   var client_id = process.env.client_id
-  console.log(process.env.NODE_ENV)
   var redirect_uri = config.url + '/callback'
   var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=user-top-read%20user-read-private%20user-read-email&state=34fFs29kd09'
  
@@ -41,6 +40,7 @@ class Home extends React.Component {
           alignItems="center"
           className={classes.root}>
           <Grid item>
+            <div>{process.env.NODE_ENV}</div>
             <Button className={classes.spotifyButton} onClick={authorize}>Login</Button>
           </Grid>
         </Grid>
