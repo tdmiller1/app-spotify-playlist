@@ -6,7 +6,12 @@ import config from './config'
 
 async function authorize(){
   var client_id = '2a6d55192d964ad0b1fd997a986eb8d3'
-  var redirect_uri = config.url + '/callback'
+  if (process.env.NODE_ENV !== 'development'){
+    var url='https://app-spotify-app.herokuapp.com/'
+  }else{
+    var url='http://localhost:3000'
+  }
+  var redirect_uri = url + '/callback'
   var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=user-top-read%20user-read-private%20user-read-email&state=34fFs29kd09'
  
   window.location.href = url
