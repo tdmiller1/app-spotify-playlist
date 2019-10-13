@@ -2,11 +2,15 @@ import * as React from "react";
 import PropTypes from 'prop-types'
 import {
   Button, Grid, withStyles } from '@material-ui/core';
-import config from './config'
 
 async function authorize(){
+  if (process.env.NODE_ENV !== 'development'){
+    var redirect_uri = 'https://api-tuckermillerdev.herokuapp.com/callback'
+  }else{
+    var redirect_uri ='http://localhost:3100/callback'
+  }
   var client_id = '2a6d55192d964ad0b1fd997a986eb8d3'
-  var redirect_uri = config.authApiUrl + '/callback'
+  
   var url = 'https://accounts.spotify.com/authorize?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=user-top-read%20user-read-private%20user-read-email&state=34fFs29kd09'
  
   window.location.href = url
