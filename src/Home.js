@@ -8,7 +8,7 @@ import axios from 'axios'
 async function authorize(){
   var client_id = ""
   axios({
-    url: config.authApiUrl + '/auth/clientId',
+    url: config.authApiUrl + 'auth/clientId',
     method: 'get',
     timeout: '8000'
   }).then(function (response) {
