@@ -43,9 +43,9 @@ class Choose extends React.Component {
           <Grid item>
             <Button onClick={() => this.props.history.push('playlist')} className={classes.button}>Make a Playlist</Button>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Button onClick={() => this.props.history.push('quiz')} className={classes.button}>Take a Quiz</Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     );

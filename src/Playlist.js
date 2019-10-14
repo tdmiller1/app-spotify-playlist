@@ -6,8 +6,8 @@ import {
 
 const styles = theme => ({
   root: {
-    height: '100vh',
     backgroundColor:'#222326',
+    padding:'20px'
   },
   button: {
     backgroundColor:'#1DB954',
@@ -18,7 +18,7 @@ const styles = theme => ({
     color:'white'
   },
   checkboxRow: {
-    width:'100vw',
+    width:'calc(100vw-40px)',
     backgroundColor:'#222326',
     color:'white',
     "&:hover": {
@@ -39,6 +39,11 @@ class Choose extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   
+  logout = () => {
+    localStorage.clear()
+    window.location.href = "/"
+  }
+
   handleChange(artistId) {
     var selected = this.state.selected
 
@@ -102,6 +107,8 @@ class Choose extends React.Component {
     })
   }
 
+  
+
   render() {
 
     const { classes } = this.props;
@@ -155,6 +162,9 @@ class Choose extends React.Component {
               </FormGroup>
             </FormControl>
             }
+          </Grid>
+          <Grid item>
+            <Button onClick={() => this.logout()} className={classes.button}>Log out</Button>
           </Grid>
         </Grid>
       </div>
