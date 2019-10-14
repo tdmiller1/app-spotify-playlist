@@ -7,7 +7,6 @@ import {
 const styles = theme => ({
   root: {
     backgroundColor:'#222326',
-    padding:'20px'
   },
   button: {
     backgroundColor:'#1DB954',
@@ -18,12 +17,15 @@ const styles = theme => ({
     color:'white'
   },
   checkboxRow: {
-    width:'calc(100vw-40px)',
     backgroundColor:'#222326',
+    width:'100vw',
     color:'white',
     "&:hover": {
       backgroundColor: '#1DB954'
-    }
+    },
+  },
+  marginZero: {
+    margin:'0px'
   }
 })
 
@@ -117,7 +119,8 @@ class Choose extends React.Component {
     if(this.state.artists !== undefined){
       ARTISTS = this.state.artists.map((artist, index) => (
         <div key={artist.name}>
-            <FormControlLabel 
+            <FormControlLabel
+              className={classes.marginZero} 
               control=
               {
                 <Grid
