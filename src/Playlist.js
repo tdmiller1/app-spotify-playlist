@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {
-  Grid, withStyles, Checkbox, FormControl, FormLabel, FormGroup, FormControlLabel, Button, Typography } from '@material-ui/core';
+  Grid, withStyles, Slider, Checkbox, FormControl, FormLabel, FormGroup, FormControlLabel, Button, Typography } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -24,21 +24,44 @@ const styles = theme => ({
       backgroundColor: '#1DB954'
     },
   },
+  playlistSelction:{
+    height:'100vh',
+    padding:'20px'
+  },
   marginZero: {
     margin:'0px'
+  },
+  text: {
+    color:'white'
   }
 })
+
+function valuetext(value) {
+  return `${value}°C`;
+}
 
 class Choose extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
+      value: false,
+      slider1: {
+        min: 1,
+        max: 50,
+        default: 45,
+        step: 1
+      },
       selected: [],
-      error: true
+      error: true,
+      sizeSelection: null
     }
 
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  submitPlaylistSize(){
+    console.log(this.state.value)
   }
   
   logout = () => {
@@ -144,31 +167,85 @@ class Choose extends React.Component {
         </div>
       ))
     }
+
+    const handleSliderChange = (event, newValue) => {
+      this.setState({value: newValue})
+    };
     
     return (
       <div>
+        
         <Grid
         container
         direction="column"
         justify="center"
         alignItems="center"
         className={classes.root}>
-          <Grid item>
-            <Button className={classes.button} disabled={this.state.error}>Submit Choices</Button>
-          </Grid>
-          <Grid item>
-            {this.state.artists && 
-            <FormControl required error={this.state.error} component="fieldset">
-              <FormLabel component="legend">Pick up to 5 artists</FormLabel>
-              <FormGroup>
-                {ARTISTS}
-              </FormGroup>
-            </FormControl>
-            }
-          </Grid>
-          <Grid item>
-            <Button onClick={() => this.logout()} className={classes.button}>Log out</Button>
-          </Grid>
+          {
+          !this.state.sizeSelection && (
+            <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            className={classes.root}>
+              <Grid item>
+                <Button className={classes.button} onClick={()=>this.setState({sizeSelection: this.state.selected.length})} disabled={this.state.error}>Submit Choices</Button>
+              </Grid>
+              <Grid item>
+                {this.state.artists && 
+                <FormControl required error={this.state.error} component="fieldset">
+                  <FormLabel component="legend">Pick up to 5 artists</FormLabel>
+                  <FormGroup>
+                    {ARTISTS}
+                  </FormGroup>
+                </FormControl>
+                }
+              </Grid>
+              <Grid item>
+                <Button onClick={() => this.logout()} className={classes.button}>Log out</Button>
+              </Grid>
+            </Grid>
+          )
+          }
+          {
+            this.state.sizeSelection && (
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                className={classes.playlistSelction}>
+                <Grid item>
+                <Button className={classes.button} onClick={()=>this.submitPlaylistSize()} disabled={this.state.error}>Submit Selection</Button>
+                </Grid>
+                <Typography className={classes.text}>
+                  Slide to select the amount of songs you want
+                </Typography>
+                <Slider
+                  value={typeof this.state.value === 'number' ? this.state.value : 0}
+                  onChange={handleSliderChange}
+                  getAriaValueText={valuetext}
+                  aria-labelledby="discrete-slider"
+                  valueLabelDisplay="auto"
+                  defaultValue={this.state.slider1.default}
+                  step={this.state.slider1.step}
+                  min={this.state.slider1.min}
+                  max={this.state.slider1.max}
+                />
+                {
+                  this.state.value && (
+                    <Typography variant="h4" component="h4" className={classes.text}>
+                      {this.state.value} Songs
+                    </Typography>
+                  )
+                }
+                <Grid item>
+                  <Button onClick={() => this.logout()} className={classes.button}>Log out</Button>
+                </Grid>
+              </Grid>
+            )
+          }
         </Grid>
       </div>
     );

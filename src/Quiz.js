@@ -64,16 +64,12 @@ class Choose extends React.Component {
     })
   }
 
+  handleChange(event){
+    this.setState({inputValue: event.target.value})
+  }
+
   render() {
     const { classes } = this.props;
-
-    const handleInputChange = (event) => {
-      console.log(event)
-      var inputValues = {...this.state.inputValues}
-      inputValues.age = event.target.value
-      this.setState({ inputValues });
-      console.log(this.state)
-    };
 
     const handleSelectChange = (event) => {
       var values = {...this.state.values}
@@ -151,8 +147,7 @@ class Choose extends React.Component {
             label="Name"
             className={classes.textField}
             value={this.state.inputValue}
-            onChange={handleInputChange}
-            onBlur={() => this.props.actions.updateInput(this.state.inputValue)}
+            onChange={this.handleChange.bind(this)}
             margin="normal"
           />
           </Grid>
